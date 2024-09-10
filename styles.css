@@ -1,1 +1,111 @@
+/* General styling */
+body {
+  background-color: #f4f4f4;
+  font-family: Arial, sans-serif;
+  margin: 0;
+  padding: 0;
+}
 
+header {
+  background-color: #4CAF50;
+  padding: 1em;
+  text-align: center;
+  color: white;
+}
+
+footer {
+  background-color: #4CAF50;
+  padding: 1em;
+  text-align: center;
+  color: white;
+  position: fixed;
+  width: 100%;
+  bottom: 0;
+}
+
+main {
+  margin: 20px;
+}
+
+/* Tab styling */
+.tabs {
+  overflow: hidden;
+  background-color: #f1f1f1;
+  border-bottom: 1px solid #ccc;
+}
+
+.tab-button {
+  background-color: #007BFF;
+  border: none;
+  outline: none;
+  cursor: pointer;
+  padding: 14px 16px;
+  transition: 0.3s;
+  font-size: 17px;
+  color: white;
+}
+
+.tab-button:hover {
+  background-color: #0056b3;
+}
+
+.tab-button.active {
+  background-color: #28a745;
+  color: white;
+}
+
+/* Tab content */
+.tab-content {
+  display: none;
+  padding: 20px;
+  background-color: white;
+  border: 1px solid #ccc;
+  border-top: none;
+  margin-top: -1px;
+}
+
+/* Theme styling */
+
+/* Default Theme */
+body.default {
+  background-color: #f4f4f4;
+  color: #333;
+}
+
+header.default {
+  background-color: #4CAF50;
+}
+
+footer.default {
+  background-color: #4CAF50;
+}
+
+/* Dark Theme */
+body.dark {
+  background-color: #333;
+  color: white;
+}
+
+header.dark {
+  background-color: #444;
+}
+
+footer.dark {
+  background-color: #444;
+}
+
+/* Light Theme */
+body.light {
+  background-color: #fff;
+  color: #333;
+}
+
+header.light {
+  background-color: #ddd;
+  color: #333;
+}
+
+footer.light {
+  background-color: #ddd;
+  color: #333;
+}
