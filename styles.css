@@ -1,30 +1,40 @@
+/* Define custom colors using CSS variables */
+:root {
+  --background-color: #f4f4f4; /* Main background color */
+  --text-color: #333;          /* Text color */
+  --header-bg-color: #4CAF50;  /* Header background */
+  --header-text-color: white;  /* Header text color */
+  --footer-bg-color: #4CAF50;  /* Footer background */
+  --footer-text-color: white;  /* Footer text color */
+  --button-bg-color: #007BFF;  /* Button background */
+  --button-text-color: white;  /* Button text color */
+  --button-active-bg-color: #28a745; /* Active button background */
+}
+
 /* General styling */
 body {
-  background-color: #f4f4f4;
+  background-color: var(--background-color);
   font-family: Arial, sans-serif;
   margin: 0;
   padding: 0;
+  color: var(--text-color);
 }
 
 header {
-  background-color: #4CAF50;
+  background-color: var(--header-bg-color);
   padding: 1em;
   text-align: center;
-  color: white;
+  color: var(--header-text-color);
 }
 
 footer {
-  background-color: #4CAF50;
+  background-color: var(--footer-bg-color);
   padding: 1em;
   text-align: center;
-  color: white;
+  color: var(--footer-text-color);
   position: fixed;
   width: 100%;
   bottom: 0;
-}
-
-main {
-  margin: 20px;
 }
 
 /* Tab styling */
@@ -35,14 +45,14 @@ main {
 }
 
 .tab-button {
-  background-color: #007BFF;
+  background-color: var(--button-bg-color);
   border: none;
   outline: none;
   cursor: pointer;
   padding: 14px 16px;
   transition: 0.3s;
   font-size: 17px;
-  color: white;
+  color: var(--button-text-color);
 }
 
 .tab-button:hover {
@@ -50,8 +60,8 @@ main {
 }
 
 .tab-button.active {
-  background-color: #28a745;
-  color: white;
+  background-color: var(--button-active-bg-color);
+  color: var(--button-text-color);
 }
 
 /* Tab content */
@@ -70,5 +80,5 @@ main {
 
 .tab-content p {
   font-size: 16px;
-  color: #333;
+  color: var(--text-color);
 }
