@@ -37,16 +37,12 @@
   <div id="Settings" class="tab-content">
     <h2>Settings</h2>
     <form id="colorForm">
-      <label for="bgColor">Background Color:</label>
-      <input type="color" id="bgColor" name="bgColor"><br><br>
-
-      <label for="textColor">Text Color:</label>
-      <input type="color" id="textColor" name="textColor"><br><br>
-
-      <label for="headerColor">Header Background Color:</label>
-      <input type="color" id="headerColor" name="headerColor"><br><br>
-
-      <button type="button" onclick="saveColors()">Save Colors</button>
+      <label for="theme">Choose a Theme:</label>
+      <select id="theme" name="theme" onchange="changeTheme()">
+        <option value="default">Default</option>
+        <option value="dark">Dark Theme</option>
+        <option value="light">Light Theme</option>
+      </select>
     </form>
   </div>
 
@@ -70,41 +66,20 @@
       evt.currentTarget.className += " active";
     }
 
-    // Function to save selected colors to Local Storage
-    function saveColors() {
-      var bgColor = document.getElementById('bgColor').value;
-      var textColor = document.getElementById('textColor').value;
-      var headerColor = document.getElementById('headerColor').value;
-      
-      // Save to localStorage
-      localStorage.setItem('bgColor', bgColor);
-      localStorage.setItem('textColor', textColor);
-      localStorage.setItem('headerColor', headerColor);
-
-      // Apply the selected colors immediately
-      applyColors();
+    // Function to change theme and save to localStorage
+    function changeTheme() {
+      var selectedTheme = document.getElementById('theme').value;
+      document.body.className = selectedTheme;  // Apply the selected theme as a class
+      localStorage.setItem('theme', selectedTheme);  // Save the theme to localStorage
     }
 
-    // Function to apply colors from Local Storage
-    function applyColors() {
-      var bgColor = localStorage.getItem('bgColor');
-      var textColor = localStorage.getItem('textColor');
-      var headerColor = localStorage.getItem('headerColor');
-
-      if (bgColor) {
-        document.body.style.backgroundColor = bgColor;
-      }
-      if (textColor) {
-        document.body.style.color = textColor;
-      }
-      if (headerColor) {
-        document.querySelector('header').style.backgroundColor = headerColor;
-      }
-    }
-
-    // Apply saved colors when the page loads
+    // Apply the saved theme when the page loads
     window.onload = function() {
-      applyColors();
+      var savedTheme = localStorage.getItem('theme');
+      if (savedTheme) {
+        document.body.className = savedTheme;
+        document.getElementById('theme').value = savedTheme;
+      }
     };
   </script>
 </body>
