@@ -64,48 +64,11 @@ main {
   margin-top: -1px;
 }
 
-/* Theme styling */
-
-/* Default Theme */
-body.default {
-  background-color: #f4f4f4;
-  color: #333;
+.tab-content h2 {
+  margin-top: 0;
 }
 
-header.default {
-  background-color: #4CAF50;
-}
-
-footer.default {
-  background-color: #4CAF50;
-}
-
-/* Dark Theme */
-body.dark {
-  background-color: #333;
-  color: white;
-}
-
-header.dark {
-  background-color: #444;
-}
-
-footer.dark {
-  background-color: #444;
-}
-
-/* Light Theme */
-body.light {
-  background-color: #fff;
-  color: #333;
-}
-
-header.light {
-  background-color: #ddd;
-  color: #333;
-}
-
-footer.light {
-  background-color: #ddd;
+.tab-content p {
+  font-size: 16px;
   color: #333;
 }
