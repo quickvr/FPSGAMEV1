@@ -3,21 +3,22 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>My GitHub Pages Site</title>
+  <title>Simple GitHub Pages Site</title>
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
   <header>
-    <h1>Welcome to My GitHub Pages Site</h1>
+    <h1>Welcome to My Simple GitHub Pages Site</h1>
   </header>
 
+  <!-- Tabs for navigating -->
   <div class="tabs">
     <button class="tab-button active" onclick="openTab(event, 'Home')">Home</button>
     <button class="tab-button" onclick="openTab(event, 'About')">About</button>
     <button class="tab-button" onclick="openTab(event, 'Contact')">Contact</button>
-    <button class="tab-button" onclick="openTab(event, 'Settings')">Settings</button>
   </div>
 
+  <!-- Content for the tabs -->
   <div id="Home" class="tab-content" style="display: block;">
     <h2>Home</h2>
     <p>Welcome to the Home page. This is the default tab.</p>
@@ -33,25 +34,13 @@
     <p>Feel free to contact me at: example@example.com.</p>
   </div>
 
-  <!-- Settings Tab for Color Customization -->
-  <div id="Settings" class="tab-content">
-    <h2>Settings</h2>
-    <form id="colorForm">
-      <label for="theme">Choose a Theme:</label>
-      <select id="theme" name="theme" onchange="changeTheme()">
-        <option value="default">Default</option>
-        <option value="dark">Dark Theme</option>
-        <option value="light">Light Theme</option>
-      </select>
-    </form>
-  </div>
-
   <footer>
-    <p>&copy; 2024 My GitHub Pages Site</p>
+    <p>&copy; 2024 My Simple GitHub Pages Site</p>
   </footer>
 
+  <!-- JavaScript for Tab functionality -->
   <script>
-    // Function to open tabs
+    // Function to open a tab
     function openTab(evt, tabName) {
       var i, tabcontent, tabbuttons;
       tabcontent = document.getElementsByClassName("tab-content");
@@ -65,22 +54,6 @@
       document.getElementById(tabName).style.display = "block";
       evt.currentTarget.className += " active";
     }
-
-    // Function to change theme and save to localStorage
-    function changeTheme() {
-      var selectedTheme = document.getElementById('theme').value;
-      document.body.className = selectedTheme;  // Apply the selected theme as a class
-      localStorage.setItem('theme', selectedTheme);  // Save the theme to localStorage
-    }
-
-    // Apply the saved theme when the page loads
-    window.onload = function() {
-      var savedTheme = localStorage.getItem('theme');
-      if (savedTheme) {
-        document.body.className = savedTheme;
-        document.getElementById('theme').value = savedTheme;
-      }
-    };
   </script>
 </body>
 </html>
