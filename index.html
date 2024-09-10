@@ -15,6 +15,7 @@
     <button class="tab-button active" onclick="openTab(event, 'Home')">Home</button>
     <button class="tab-button" onclick="openTab(event, 'About')">About</button>
     <button class="tab-button" onclick="openTab(event, 'Contact')">Contact</button>
+    <button class="tab-button" onclick="openTab(event, 'Settings')">Settings</button>
   </div>
 
   <div id="Home" class="tab-content" style="display: block;">
@@ -32,30 +33,79 @@
     <p>Feel free to contact me at: example@example.com.</p>
   </div>
 
+  <!-- Settings Tab for Color Customization -->
+  <div id="Settings" class="tab-content">
+    <h2>Settings</h2>
+    <form id="colorForm">
+      <label for="bgColor">Background Color:</label>
+      <input type="color" id="bgColor" name="bgColor"><br><br>
+
+      <label for="textColor">Text Color:</label>
+      <input type="color" id="textColor" name="textColor"><br><br>
+
+      <label for="headerColor">Header Background Color:</label>
+      <input type="color" id="headerColor" name="headerColor"><br><br>
+
+      <button type="button" onclick="saveColors()">Save Colors</button>
+    </form>
+  </div>
+
   <footer>
     <p>&copy; 2024 My GitHub Pages Site</p>
   </footer>
 
   <script>
+    // Function to open tabs
     function openTab(evt, tabName) {
       var i, tabcontent, tabbuttons;
-
-      // Hide all tab contents
       tabcontent = document.getElementsByClassName("tab-content");
       for (i = 0; i < tabcontent.length; i++) {
         tabcontent[i].style.display = "none";
       }
-
-      // Remove "active" class from all tab buttons
       tabbuttons = document.getElementsByClassName("tab-button");
       for (i = 0; i < tabbuttons.length; i++) {
         tabbuttons[i].className = tabbuttons[i].className.replace(" active", "");
       }
-
-      // Show the current tab content, and add "active" class to the button that opened the tab
       document.getElementById(tabName).style.display = "block";
       evt.currentTarget.className += " active";
     }
+
+    // Function to save selected colors to Local Storage
+    function saveColors() {
+      var bgColor = document.getElementById('bgColor').value;
+      var textColor = document.getElementById('textColor').value;
+      var headerColor = document.getElementById('headerColor').value;
+      
+      // Save to localStorage
+      localStorage.setItem('bgColor', bgColor);
+      localStorage.setItem('textColor', textColor);
+      localStorage.setItem('headerColor', headerColor);
+
+      // Apply the selected colors immediately
+      applyColors();
+    }
+
+    // Function to apply colors from Local Storage
+    function applyColors() {
+      var bgColor = localStorage.getItem('bgColor');
+      var textColor = localStorage.getItem('textColor');
+      var headerColor = localStorage.getItem('headerColor');
+
+      if (bgColor) {
+        document.body.style.backgroundColor = bgColor;
+      }
+      if (textColor) {
+        document.body.style.color = textColor;
+      }
+      if (headerColor) {
+        document.querySelector('header').style.backgroundColor = headerColor;
+      }
+    }
+
+    // Apply saved colors when the page loads
+    window.onload = function() {
+      applyColors();
+    };
   </script>
 </body>
 </html>
