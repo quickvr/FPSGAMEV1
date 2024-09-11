@@ -49,7 +49,7 @@ function init() {
     scene.add(yawObject);
 
     // Set the initial camera position
-    camera.position.set(0, 1.5, 5); // Starting position
+    camera.position.set(0, 1, 5); // Starting position
 
     // Event listeners for movement and shooting
     document.addEventListener('keydown', onKeyDown, false);
@@ -120,8 +120,8 @@ function onMouseMove(event) {
         let movementX = event.movementX || 0;
         let movementY = event.movementY || 0;
 
-        yawObject.rotation.y -= movementX * 0.002;
-        pitchObject.rotation.x -= movementY * 0.002;
+        yawObject.rotation.y -= movementX * 0;
+        pitchObject.rotation.x -= movementY * 0;
         pitchObject.rotation.x = Math.max(-Math.PI / 2, Math.min(Math.PI / 2, pitchObject.rotation.x)); // Limit vertical look
     }
 }
