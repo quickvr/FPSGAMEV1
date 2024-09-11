@@ -1,179 +1,229 @@
-let scene, camera, renderer;
-let moveForward = false, moveBackward = false, moveLeft = false, moveRight = false;
-let velocity = new THREE.Vector3();
-let direction = new THREE.Vector3();
-let objects = [];
-let bullets = [];
+Video Script: Creating a First-Person Shooter with JavaScript on GitHub
+
+[Intro Scene]
+
+(Upbeat music plays)
+
+[On-Screen Text]: "Create a First-Person Shooter with JavaScript!"
+
+[Host On-Camera]: (Smiling and excited)
+
+"Hey everyone! Welcome back to the channel. Today, we're diving into the world of game development and building a simple first-person shooter using JavaScript! We'll use mouse movement and the WASD keys to control our character. Plus, I'll show you how to set it all up on GitHub. So let’s get started!"
+
+[Scene Transition to Screen Share]
+
+[On-Screen Text]: "Step 1: Set Up Your Project"
+
+[Voiceover]:
+
+"First, let’s set up our project. Create a new folder on your computer for the game. Inside this folder, create three files: index.html, style.css, and script.js."
+
+[Cut to Code Editor]
+
+[Voiceover]:
+
+"In index.html, we’ll set up the basic structure. Let’s start by creating the HTML skeleton."
+
+(Shows typing)
+
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>First-Person Shooter</title>
+
+<link rel="stylesheet" href="style.css">
+
+</head>
+
+<body>
+
+<canvas id="gameCanvas"></canvas>
+
+<script src="script.js"></script>
+
+</body>
+
+</html>
+
+[On-Screen Text]: "Step 2: Style the Game Canvas"
+
+[Voiceover]:
+
+"Now let’s add some styles in style.css. We’ll make the canvas fill the screen."
+
+(Shows typing)
+
+body {
+
+margin: 0;
+
+overflow: hidden;
+
+}
+
+canvas {
+
+display: block;
+
+background: #333; /* Dark background for the game */
+
+}
+
+[Scene Transition Back to Code Editor]
+
+[On-Screen Text]: "Step 3: Set Up the Game Logic"
+
+[Voiceover]:
+
+"Next, we’ll dive into the game logic in script.js. First, we’ll set up the canvas and basic variables."
+
+(Shows typing)
+
+const canvas = document.getElementById('gameCanvas');
+
+const ctx = canvas.getContext('2d');
+
+canvas.width = window.innerWidth;
+
+canvas.height = window.innerHeight;
+
+let playerX = canvas.width / 2;
+
+let playerY = canvas.height / 2;
 
 let playerSpeed = 5;
-let bulletSpeed = 50;
-let clock = new THREE.Clock();
 
-let pitchObject, yawObject;
-let isPointerLocked = true;
+let mouseX = canvas.width / 2;
 
-// Set up the scene, camera, and renderer
-function init() {
-    // Create a scene
-    scene = new THREE.Scene();
+let mouseY = canvas.height / 2;
 
-    // Create a camera (FOV, aspect ratio, near, far)
-    camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+document.addEventListener('mousemove', (event) => {
 
-    // Create a renderer and append to document
-    renderer = new THREE.WebGLRenderer({ canvas: document.getElementById("fpsCanvas") });
-    renderer.setSize(window.innerWidth, window.innerHeight);
-    document.body.appendChild(renderer.domElement);
+mouseX = event.clientX;
 
-    // Add a simple ground
-    let groundGeometry = new THREE.PlaneGeometry(100, 100);
-    let groundMaterial = new THREE.MeshBasicMaterial({ color: 0x228B22 });
-    let ground = new THREE.Mesh(groundGeometry, groundMaterial);
-    ground.rotation.x = -Math.PI / 2; // Rotate to be horizontal
-    scene.add(ground);
+mouseY = event.clientY;
 
-    // Add a simple cube (target)
-    let cubeGeometry = new THREE.BoxGeometry(1, 1, 1);
-    let cubeMaterial = new THREE.MeshBasicMaterial({ color: 0xff0000 });
-    let cube = new THREE.Mesh(cubeGeometry, cubeMaterial);
-    cube.position.set(0, 1, -5); // Position the cube in front of the camera
-    scene.add(cube);
-    objects.push(cube);
+});
 
-    // Set up camera controls using yaw and pitch objects
-    pitchObject = new THREE.Object3D();
-    pitchObject.add(camera);
+[On-Screen Text]: "Step 4: Handle Player Movement"
 
-    yawObject = new THREE.Object3D();
-    yawObject.add(pitchObject);
-    scene.add(yawObject);
+[Voiceover]:
 
-    // Set the initial camera position
-    camera.position.set(0, 1, 5); // Starting position
+"Now let's implement movement controls using the WASD keys."
 
-    // Event listeners for movement and shooting
-    document.addEventListener('keydown', onKeyDown, false);
-    document.addEventListener('keyup', onKeyUp, false);
-    document.addEventListener('click', onClick, false);
-    document.addEventListener('mousemove', onMouseMove, false);
+(Shows typing)
 
-    // Pointer lock API for mouse look
-    document.body.addEventListener('click', function() {
-        document.body.requestPointerLock();
-    }, true);
+const keys = {};
 
-    document.addEventListener('pointerlockchange', onPointerLockChange, false);
-    document.addEventListener('pointerlockerror', onPointerLockError, false);
+document.addEventListener('keydown', (event) => {
+
+keys[event.key] = true;
+
+});
+
+document.addEventListener('keyup', (event) => {
+
+keys[event.key] = false;
+
+});
+
+function update() {
+
+if (keys['w']) playerY -= playerSpeed;
+
+if (keys['s']) playerY += playerSpeed;
+
+if (keys['a']) playerX -= playerSpeed;
+
+if (keys['d']) playerX += playerSpeed;
+
+// Keep the player within bounds
+
+playerX = Math.max(0, Math.min(canvas.width, playerX));
+
+playerY = Math.max(0, Math.min(canvas.height, playerY));
+
 }
 
-// Handle pointer lock state changes
-function onPointerLockChange() {
-    if (document.pointerLockElement === document.body) {
-        isPointerLocked = true;
-    } else {
-        isPointerLocked = false;
-    }
+[On-Screen Text]: "Step 5: Game Loop"
+
+[Voiceover]:
+
+"Let’s create the main game loop to keep everything running."
+
+(Shows typing)
+
+function gameLoop() {
+
+ctx.clearRect(0, 0, canvas.width, canvas.height); // Clear the canvas
+
+// Update player position
+
+update();
+
+// Draw the player
+
+ctx.fillStyle = 'white'; // Player color
+
+ctx.fillRect(playerX, playerY, 20, 20); // Simple square to represent the player
+
+requestAnimationFrame(gameLoop); // Request next frame
+
 }
 
-function onPointerLockError() {
-    console.error("Pointer lock error.");
-}
+gameLoop(); // Start the game loop
 
-// Handle keyboard input
-function onKeyDown(event) {
-    switch (event.code) {
-        case 'KeyW':
-            moveForward = true;
-            break;
-        case 'KeyS':
-            moveBackward = true;
-            break;
-        case 'KeyA':
-            moveLeft = true;
-            break;
-        case 'KeyD':
-            moveRight = true;
-            break;
-    }
-}
+[Scene Transition Back to Host On-Camera]
 
-function onKeyUp(event) {
-    switch (event.code) {
-        case 'KeyW':
-            moveForward = false;
-            break;
-        case 'KeyS':
-            moveBackward = false;
-            break;
-        case 'KeyA':
-            moveLeft = false;
-            break;
-        case 'KeyD':
-            moveRight = false;
-            break;
-    }
-}
+[Host]:
 
-// Handle mouse movement (look around)
-function onMouseMove(event) {
-    if (isPointerLocked) {
-        let movementX = event.movementX || 0;
-        let movementY = event.movementY || 0;
+"Awesome! Now we have the basic functionality for our first-person shooter. You can move around using WASD keys and control the camera with your mouse!"
 
-        yawObject.rotation.y -= movementX * 0;
-        pitchObject.rotation.x -= movementY * 0;
-        pitchObject.rotation.x = Math.max(-Math.PI / 2, Math.min(Math.PI / 2, pitchObject.rotation.x)); // Limit vertical look
-    }
-}
+[On-Screen Text]: "Step 6: Upload to GitHub"
 
-// Handle mouse click (shoot)
-function onClick() {
-    if (isPointerLocked) {
-        let bulletGeometry = new THREE.SphereGeometry(0.1, 8, 8);
-        let bulletMaterial = new THREE.MeshBasicMaterial({ color: 0xffff00 });
-        let bullet = new THREE.Mesh(bulletGeometry, bulletMaterial);
+[Voiceover]:
 
-        // Set the bullet at the camera position
-        bullet.position.copy(camera.position);
-        bullet.direction = camera.getWorldDirection(new THREE.Vector3());
-        bullets.push(bullet);
-        scene.add(bullet);
-    }
-}
+"Finally, let’s push this to GitHub. First, initialize a new Git repository in your project folder:"
 
-// Animate and render the scene
-function animate() {
-    requestAnimationFrame(animate);
+(Shows terminal commands)
 
-    let delta = clock.getDelta();
+git init
 
-    // Player movement
-    direction.z = Number(moveForward) - Number(moveBackward);
-    direction.x = Number(moveRight) - Number(moveLeft);
-    direction.normalize(); // Normalize to prevent faster diagonal movement
+git add .
 
-    if (moveForward || moveBackward) {
-        velocity.z -= direction.z * playerSpeed * delta;
-    }
-    if (moveLeft || moveRight) {
-        velocity.x -= direction.x * playerSpeed * delta;
-    }
+git commit -m "Initial commit of first-person shooter"
 
-    yawObject.translateX(velocity.x * delta);
-    yawObject.translateZ(velocity.z * delta);
+"Next, create a new repository on GitHub and follow the instructions to link your local project to GitHub."
 
-    // Reset the velocity
-    velocity.x = velocity.z = 0;
+(Shows filling out GitHub repository)
 
-    // Move bullets
-    bullets.forEach(bullet => {
-        bullet.position.add(bullet.direction.clone().multiplyScalar(bulletSpeed * delta));
-    });
+[Voiceover]:
 
-    // Render the scene
-    renderer.render(scene, camera);
-}
+"After that, push your changes!"
 
-// Initialize the scene
-init();
-animate();
+git remote add origin https://github.com/yourusername/your-repo.git
+
+git push -u origin master
+
+[Host On-Camera]
+
+[Host]:
+
+"And there you go! Your very own first-person shooter hosted on GitHub. You can now expand upon this basic version by adding enemies, shooting mechanics, or even textures. The possibilities are endless!"
+
+(Waves goodbye)
+
+"Thanks for watching! If you found this tutorial helpful, please like, subscribe, and hit that notification bell for more programming content. Happy coding!"
+
+(Outro music plays)
+
+[On-Screen Text]: "Subscribe for more! 🎮💻"
+
+(End screen with video suggestions and subscribe button)
