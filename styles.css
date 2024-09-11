@@ -1,13 +1,24 @@
+/* Define your color variables here */
+:root {
+    --primary-color: #333; /* Color for header, footer, and navigation */
+    --secondary-color: #fff; /* Text color */
+    --background-color: #f4f4f4; /* Background color for the body */
+    --section-background: #fff; /* Background color for sections */
+    --link-color: #007bff; /* Color for links */
+    --link-hover-color: #0056b3; /* Color when hovering over links */
+}
+
 body {
     font-family: Arial, sans-serif;
     margin: 0;
     padding: 0;
-    background-color: #f4f4f4;
+    background-color: var(--background-color);
+    color: var(--secondary-color);
 }
 
 header {
-    background-color: #333;
-    color: #fff;
+    background-color: var(--primary-color);
+    color: var(--secondary-color);
     padding: 20px 0;
     text-align: center;
 }
@@ -23,22 +34,22 @@ nav ul li {
 }
 
 nav ul li a {
-    color: #fff;
+    color: var(--secondary-color);
     text-decoration: none;
 }
 
 section {
     padding: 20px;
     margin: 20px;
-    background-color: #fff;
+    background-color: var(--section-background);
     border-radius: 5px;
 }
 
 footer {
     text-align: center;
     padding: 20px;
-    background-color: #333;
-    color: #fff;
+    background-color: var(--primary-color);
+    color: var(--secondary-color);
 }
 
 footer ul {
@@ -52,6 +63,14 @@ footer ul li {
 }
 
 footer ul li a {
-    color: #fff;
+    color: var(--secondary-color);
     text-decoration: none;
+}
+
+a {
+    color: var(--link-color);
+}
+
+a:hover {
+    color: var(--link-hover-color);
 }
