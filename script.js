@@ -36,7 +36,7 @@ function init() {
     let cubeGeometry = new THREE.BoxGeometry(1, 1, 1);
     let cubeMaterial = new THREE.MeshBasicMaterial({ color: 0xff0000 });
     let cube = new THREE.Mesh(cubeGeometry, cubeMaterial);
-    cube.position.set(0, 0.5, -5); // Position the cube in front of the camera
+    cube.position.set(0, 1, -5); // Position the cube in front of the camera
     scene.add(cube);
     objects.push(cube);
 
