@@ -1,76 +1,14 @@
-/* Define your color variables here */
-:root {
-    --primary-color: #333; /* Color for header, footer, and navigation */
-    --secondary-color: #fff; /* Text color */
-    --background-color: #f4f4f4; /* Background color for the body */
-    --section-background: #fff; /* Background color for sections */
-    --link-color: #007bff; /* Color for links */
-    --link-hover-color: #0056b3; /* Color when hovering over links */
-}
-
-body {
-    font-family: Arial, sans-serif;
+body, html {
     margin: 0;
     padding: 0;
-    background-color: var(--background-color);
-    color: var(--secondary-color);
+    overflow: hidden;
+    height: 100%;
+    font-family: Arial, sans-serif;
 }
 
-header {
-    background-color: var(--primary-color);
-    color: var(--secondary-color);
-    padding: 20px 0;
-    text-align: center;
-}
-
-nav ul {
-    list-style-type: none;
-    padding: 0;
-}
-
-nav ul li {
-    display: inline;
-    margin: 0 15px;
-}
-
-nav ul li a {
-    color: var(--secondary-color);
-    text-decoration: none;
-}
-
-section {
-    padding: 20px;
-    margin: 20px;
-    background-color: var(--section-background);
-    border-radius: 5px;
-}
-
-footer {
-    text-align: center;
-    padding: 20px;
-    background-color: var(--primary-color);
-    color: var(--secondary-color);
-}
-
-footer ul {
-    list-style-type: none;
-    padding: 0;
-}
-
-footer ul li {
-    display: inline;
-    margin: 0 10px;
-}
-
-footer ul li a {
-    color: var(--secondary-color);
-    text-decoration: none;
-}
-
-a {
-    color: var(--link-color);
-}
-
-a:hover {
-    color: var(--link-hover-color);
+canvas {
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
 }
