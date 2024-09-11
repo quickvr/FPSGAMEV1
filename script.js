@@ -10,7 +10,7 @@ let bulletSpeed = 50;
 let clock = new THREE.Clock();
 
 let pitchObject, yawObject;
-let isPointerLocked = false;
+let isPointerLocked = true;
 
 // Set up the scene, camera, and renderer
 function init() {
