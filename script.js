@@ -10,7 +10,7 @@ let bulletSpeed = 50;
 let clock = new THREE.Clock();
 
 let pitchObject, yawObject;
-let isPointerLocked = true;
+let isPointerLocked = false;
 
 // Set up the scene, camera, and renderer
 function init() {
@@ -60,7 +60,7 @@ function init() {
     // Pointer lock API for mouse look
     document.body.addEventListener('click', function() {
         document.body.requestPointerLock();
-    }, false);
+    }, true);
 
     document.addEventListener('pointerlockchange', onPointerLockChange, false);
     document.addEventListener('pointerlockerror', onPointerLockError, false);
