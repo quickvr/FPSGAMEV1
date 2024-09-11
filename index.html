@@ -3,47 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="Game Updates and Information">
-    <title>Game Updates</title>
+    <title>FPS Demo</title>
     <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <header>
-        <h1>My Game Website</h1>
-        <nav>
-            <ul>
-                <li><a href="#updates">Updates</a></li>
-                <li><a href="#about">About the Game</a></li>
-                <li><a href="#download">Download</a></li>
-            </ul>
-        </nav>
-    </header>
+    <h1>Simple FPS Game</h1>
+    <p>Use WASD to move, and the mouse to look around. Left-click to shoot.</p>
+    <canvas id="fpsCanvas"></canvas>
 
-    <section id="updates">
-        <h2>Latest Updates</h2>
-        <div id="update-list">
-            <!-- Updates will be added here -->
-        </div>
-    </section>
-
-    <section id="about">
-        <h2>About the Game</h2>
-        <p>This is where you can add a brief description of your game, its storyline, and what makes it unique.</p>
-    </section>
-
-    <section id="download">
-        <h2>Download the Game</h2>
-        <p>Link to the latest version: <a href="https://github.com/your-repo/game/releases" target="_blank">Download here</a></p>
-    </section>
-
-    <footer>
-        <p>Follow us on social media!</p>
-        <ul>
-            <li><a href="https://twitter.com/yourgame" target="_blank">Twitter</a></li>
-            <li><a href="https://facebook.com/yourgame" target="_blank">Facebook</a></li>
-        </ul>
-    </footer>
-
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/110/three.min.js"></script>
     <script src="script.js"></script>
 </body>
 </html>
